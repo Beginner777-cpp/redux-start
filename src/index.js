@@ -55,19 +55,23 @@
 
 //immer js end//
 
-import store from "./store";
-import * as actions from './actions'
+// import configureStore from './store/bugs/configureStore';
+// import {actions} from './store/bugs/reducer'
 
+import configureStore from './store/configureStore';
+import * as projectActions from './store/projects/reducer';
+import * as bugActions from './store/bugs/reducer';
 
+const store = configureStore;
+console.log(store);
 const unsubscribe = store.subscribe(() => {
     console.log('Store changed', store.getState());
 })
 
-
-store.dispatch(actions.addBug('bug1'))
-store.dispatch(actions.addBug('bug2'))
-store.dispatch(actions.resolveBug(1))
+store.dispatch(projectActions.addProject({ name: 'proj1' }))
+store.dispatch(projectActions.addProject({ name: 'proj2' }))
+store.dispatch(bugActions.addBug({ name: 'proj2' }))
+store.dispatch(bugActions.resolveBug({ id: 1 }))
 unsubscribe()
-// store.dispatch(actions.removeBug(1))
+store.dispatch(bugActions.removeBug(1))
 console.log(store.getState());
- 
