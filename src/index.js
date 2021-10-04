@@ -70,8 +70,14 @@ const unsubscribe = store.subscribe(() => {
 
 store.dispatch(projectActions.addProject({ name: 'proj1' }))
 store.dispatch(projectActions.addProject({ name: 'proj2' }))
-store.dispatch(bugActions.addBug({ name: 'proj2' }))
+store.dispatch(bugActions.addBug({ description: 'bug1' }))
+store.dispatch(bugActions.addBug({ description: 'bug2' }))
+store.dispatch(bugActions.addBug({ description: 'bug3' }))
 store.dispatch(bugActions.resolveBug({ id: 1 }))
 unsubscribe()
-store.dispatch(bugActions.removeBug(1))
+// store.dispatch(bugActions.removeBug(1))
 console.log(store.getState());
+const unResolved = bugActions.getUnresolvedBug(store.getState());
+const unResolved2 = bugActions.getUnresolvedBug(store.getState());
+console.log(unResolved == unResolved2);
+console.log(unResolved2);
