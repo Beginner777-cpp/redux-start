@@ -61,6 +61,7 @@
 import configureStore from './store/configureStore';
 import * as projectActions from './store/projects/reducer';
 import * as bugActions from './store/bugs/reducer';
+import * as userActions from './store/users/reducer';
 
 const store = configureStore;
 console.log(store);
@@ -73,11 +74,15 @@ store.dispatch(projectActions.addProject({ name: 'proj2' }))
 store.dispatch(bugActions.addBug({ description: 'bug1' }))
 store.dispatch(bugActions.addBug({ description: 'bug2' }))
 store.dispatch(bugActions.addBug({ description: 'bug3' }))
-store.dispatch(bugActions.resolveBug({ id: 1 }))
+store.dispatch(userActions.addUser({ name: 'User 1' }))
+store.dispatch(userActions.addUser({ name: 'User 2' }))
+store.dispatch(bugActions.assignBugToUser({ bugId: 1, userId: 1 }))
+store.dispatch(bugActions.assignBugToUser({ bugId: 2, userId: 1 }))
+store.dispatch(bugActions.resolveBug({ id: 2 }))
 unsubscribe()
 // store.dispatch(bugActions.removeBug(1))
-console.log(store.getState());
+console.log('state: ', store.getState());
 const unResolved = bugActions.getUnresolvedBug(store.getState());
-const unResolved2 = bugActions.getUnresolvedBug(store.getState());
-console.log(unResolved == unResolved2);
-console.log(unResolved2);
+const assignedBugs = bugActions.getAssignedBugs(2)(store.getState());
+console.log('unResolved: ', unResolved);
+console.log('assignedBugs: ', assignedBugs);
