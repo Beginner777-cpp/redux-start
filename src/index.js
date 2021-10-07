@@ -59,16 +59,30 @@
 // import {actions} from './store/bugs/reducer'
 
 import configureStore from './store/configureStore';
-import * as projectActions from './store/projects/reducer';
-import * as bugActions from './store/bugs/reducer';
-import * as userActions from './store/users/reducer';
-import { loadBugs } from './store/bugs/reducer';
+import { loadBugs, addBug, assignBugToUser, resolveBug } from './store/bugs/reducer';
 const store = configureStore();
 const unsubscribe = store.subscribe(() => {
     console.log('Store changed', store.getState());
 })
 
+// setTimeout(() => {
+//     store.dispatch(loadBugs())
+
+// }, 2000);
+// store.dispatch(addBug({ description: 'test' }))
+// store.dispatch(resolveBug(1))
+// assignBugToUser(1, 5);
 store.dispatch(loadBugs())
+// setTimeout(() => {
+//     console
+//     .log(store.getState());
+
+// }, 1000);
+store.dispatch(resolveBug(2))
+store.dispatch(assignBugToUser(4, 5))
+// store.assignBugToUser(0, 1)
+// store.dispatch(loadBugs())
+// store.dispatch(loadBugs())
 
 // store.dispatch((dispatch, getState) => {
 //     dispatch({ type: 'bugsReceived', bugs: [1, 2, 3] });
