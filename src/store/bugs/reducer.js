@@ -6,6 +6,8 @@ import {
 } from 'reselect'
 import moment from 'moment';
 import { apiCallBegan } from '../api';
+
+import {axios} from 'axios'
 let lastId = 0;
 const slice = createSlice({
     name: 'bugs',
@@ -42,7 +44,7 @@ const slice = createSlice({
         }
     }
 })
-const {
+export const {
     bugAdded,
     bugRemoved,
     bugResolved,
@@ -68,6 +70,9 @@ export const getAssignedBugs = (userId) => {
         })
 }
 const url = '/bugs';
+export const addBug = bug=>{
+    
+}
 export const addBug = (bug) => apiCallBegan({
     url,
     method: 'post',
