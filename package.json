@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js",
-    "test": "jest --watch"
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "Mosh Hamedani",
@@ -15,6 +15,7 @@
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@types/jest": "^27.0.2",
+    "axios-mock-adapter": "^1.20.0",
     "babel-jest": "^27.2.4",
     "jest": "^27.2.4",
     "webpack": "4.41.6",
@@ -24,7 +25,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.22.0",
-    "axios-mock-adapter": "^1.20.0",
     "immer": "^9.0.6",
     "immutable": "^4.0.0-rc.15",
     "lodash": "^4.17.21",

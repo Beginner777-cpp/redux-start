@@ -5,9 +5,9 @@ import {
     createSelector
 } from 'reselect'
 import moment from 'moment';
+import axios from 'axios';
 import { apiCallBegan } from '../api';
 
-import {axios} from 'axios'
 let lastId = 0;
 const slice = createSlice({
     name: 'bugs',
@@ -70,15 +70,25 @@ export const getAssignedBugs = (userId) => {
         })
 }
 const url = '/bugs';
-export const addBug = bug=>{
-    
+export const addBug = bug => async (dispatch, getState) => {
+        const response = await axios.request({
+            baseURL: 'http://localhost:9001/api',
+            url: '/bugs',
+            method: 'post',
+            data: bug
+        });
+        // console.log(response);
+        dispatch(bugAdded(response.data))
+        // console.log(getState);
+   
+
 }
-export const addBug = (bug) => apiCallBegan({
-    url,
-    method: 'post',
-    data: bug,
-    onSuccess: bugAdded.type
-})
+// export const addBug = (bug) => apiCallBegan({
+//     url,
+//     method: 'post',
+//     data: bug,
+//     onSuccess: bugAdded.type
+// })
 export const assignBugToUser = (bugId, userId) => apiCallBegan({
     url: url + '/' + bugId,
     method: 'patch',
