@@ -28,12 +28,14 @@ const slice = createSlice({
         bugsRequestFailed: (bugs, action) => {
             bugs.loading = false;
         },
-        bugAdded: (bugs, action) => {
+        bugAdded: (
+            bugs, action) => {
             bugs.list.push(action.payload)
         },
         bugRemoved: (bugs, action) => {
             bugs.list.splice(action.payload.id, 1)
         },
+        
         bugResolved: (bugs, action) => {
             const index = bugs.list.findIndex(bug => bug.id === action.payload.id)
             bugs.list[index].resolved = true;
@@ -70,25 +72,21 @@ export const getAssignedBugs = (userId) => {
         })
 }
 const url = '/bugs';
-export const addBug = bug => async (dispatch, getState) => {
-        const response = await axios.request({
-            baseURL: 'http://localhost:9001/api',
-            url: '/bugs',
-            method: 'post',
-            data: bug
-        });
-        // console.log(response);
-        dispatch(bugAdded(response.data))
-        // console.log(getState);
-   
-
-}
-// export const addBug = (bug) => apiCallBegan({
-//     url,
-//     method: 'post',
-//     data: bug,
-//     onSuccess: bugAdded.type
-// })
+// export const addBug = bug => async (dispatch, getState) => {
+//         const response = await axios.request({
+//             baseURL: 'http://localhost:9001/api',
+//             url: '/bugs',
+//             method: 'post',
+//             data: bug
+//         });
+//         dispatch(bugAdded(response.data))
+// }
+export const addBug = (bug) => apiCallBegan({
+    url,
+    method: 'post',
+    data: bug,
+    onSuccess: bugAdded.type
+})
 export const assignBugToUser = (bugId, userId) => apiCallBegan({
     url: url + '/' + bugId,
     method: 'patch',
@@ -101,14 +99,13 @@ export const resolveBug = (bugId) => apiCallBegan({
     data: { resolved: true },
     onSuccess: bugResolved.type
 })
-export const loadBugs = () => (dispatch, getState) => {
+export const loadBugs = () => async (dispatch, getState) => {
     const { lastFetch } = getState().entities.bugs;
     const diffMinute = moment().diff(moment(lastFetch), 'minutes');
-    console.log('bugs loaded ', diffMinute);
     if (diffMinute < 10) {
         return;
     }
-    dispatch(apiCallBegan({
+    return await dispatch(apiCallBegan({
         url,
         onStart: bugsRequested.type,
         onSuccess: bugsReceived.type,

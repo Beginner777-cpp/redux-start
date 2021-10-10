@@ -73,13 +73,10 @@ const unsubscribe = store.subscribe(() => {
 // store.dispatch(resolveBug(1))
 // assignBugToUser(1, 5);
 store.dispatch(loadBugs())
-// setTimeout(() => {
-//     console
-//     .log(store.getState());
 
-// }, 1000);
-store.dispatch(resolveBug(2))
-store.dispatch(assignBugToUser(4, 5))
+
+// store.dispatch(resolveBug(2))
+// store.dispatch(assignBugToUser(4, 5))
 // store.assignBugToUser(0, 1)
 // store.dispatch(loadBugs())
 // store.dispatch(loadBugs())
